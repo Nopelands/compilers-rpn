@@ -1,3 +1,5 @@
+package stacker.rpn.lexer;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -8,25 +10,17 @@ public class rpn {
         try {
             File file = new File("/home/phoenix/IdeaProjects/compilers-rpn/src/Calc1.stk");
             Scanner sc = new Scanner(file);
-            Stack<String> stack = new Stack<String>();
+            Stack<String> stack = new Stack<>();
             while (sc.hasNextLine()) {
                 String aux = sc.nextLine();
                 if (aux.equals("+") || aux.equals("-") || aux.equals("*") || aux.equals("/")) {
                     int operandA = Integer.parseInt(stack.pop());
                     int operandB = Integer.parseInt(stack.pop());
                     switch (aux) {
-                        case "+":
-                            stack.push(Integer.toString(operandA + operandB));
-                            break;
-                        case "-":
-                            stack.push(Integer.toString(operandA - operandB));
-                            break;
-                        case "*":
-                            stack.push(Integer.toString(operandA * operandB));
-                            break;
-                        case "/":
-                            stack.push(Integer.toString(operandA / operandB));
-                            break;
+                        case "+" -> stack.push(Integer.toString(operandA + operandB));
+                        case "-" -> stack.push(Integer.toString(operandA - operandB));
+                        case "*" -> stack.push(Integer.toString(operandA * operandB));
+                        case "/" -> stack.push(Integer.toString(operandA / operandB));
                     }
                 } else {
                     stack.push(aux);
