@@ -22,6 +22,7 @@ public class rpn {
     }
     public static void main(String[] args) {
         try {
+            boolean debug = true; // prints token info
             File file = new File("/home/phoenix/IdeaProjects/compilers-rpn/src/Calc1.stk");
             Scanner sc = new Scanner(file);
             Stack<Token> stack = new Stack<>();
@@ -37,9 +38,11 @@ public class rpn {
                 }
             }
             queue.add(new Token(TokenType.EOF, "\u001a"));
-            for (Token token : queue
-                 ) {
-                System.out.println(token);
+            if (debug) {
+                for (Token token : queue
+                ) {
+                    System.out.println(token);
+                }
             }
             queue.removeLast();
             while (queue.size() > 0) {
