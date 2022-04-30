@@ -50,11 +50,11 @@ public class rpn {
                 if (aux.lexeme.equals("+") || aux.lexeme.equals("-") || aux.lexeme.equals("*") || aux.lexeme.equals("/")) {
                     Float operandA = Float.parseFloat(stack.pop().lexeme);
                     Float operandB = Float.parseFloat(stack.pop().lexeme);
-                    switch (aux.lexeme) {
-                        case "+" -> stack.push(new Token(TokenType.NUM, Float.toString(operandA + operandB)));
-                        case "-" -> stack.push(new Token(TokenType.NUM, Float.toString(operandA - operandB)));
-                        case "*" -> stack.push(new Token(TokenType.NUM, Float.toString(operandA * operandB)));
-                        case "/" -> stack.push(new Token(TokenType.NUM, Float.toString(operandA / operandB)));
+                    switch (aux.type) {
+                        case PLUS -> stack.push(new Token(TokenType.NUM, Float.toString(operandA + operandB)));
+                        case MINUS -> stack.push(new Token(TokenType.NUM, Float.toString(operandA - operandB)));
+                        case STAR -> stack.push(new Token(TokenType.NUM, Float.toString(operandA * operandB)));
+                        case SLASH -> stack.push(new Token(TokenType.NUM, Float.toString(operandA / operandB)));
                     }
                 } else {
                     stack.push(aux);
