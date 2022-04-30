@@ -13,8 +13,7 @@ public class rpn {
         Pattern pattern = Pattern.compile("\\d+(.\\d+)?");
         Matcher matcher = pattern.matcher(str);
         if (matcher.matches()) {
-            Token token = new Token(TokenType.NUM, str);
-            return token;
+            return new Token(TokenType.NUM, str);
         } else {
             System.out.println("Error: Unexpected character: " + str.strip());
             System.exit(1);
