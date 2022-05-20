@@ -14,7 +14,7 @@
  *     http://www.cin.ufpe.br/~hemr/
  * ******************************************************************/
 
-package stacker.rpn.lexer;
+package postfix.lexer;
 
 /**
  * @author Henrique Rebelo
