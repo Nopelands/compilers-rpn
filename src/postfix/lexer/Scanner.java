@@ -70,13 +70,13 @@ public class Scanner {
 		Token ret = null;
 		if(Regex.isNum(token)) {
 			ret = new Token(TokenType.NUM, token);
-		}
-		else if(Regex.isOP(token)) {
-			ret = new Token(Regex.getOPTokenType(token), token);
-		}
-		else {
-			throw new LexError("Unexpected character: "+token);
-		}
+		} else if (Regex.isVar(token)) {
+            ret = new Token(TokenType.VAR, token);
+        } else if (Regex.isOP(token)) {
+            ret = new Token(Regex.getOPTokenType(token), token);
+        } else {
+            throw new LexError("Unexpected character: " + token);
+        }
 		return ret;
 	}
 }

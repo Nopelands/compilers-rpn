@@ -22,16 +22,20 @@ package postfix.lexer;
 public class Regex {
 	// regex for literals recognition
 	private static final String NUM_REGEX = "(\\d)+"; // short for [0-9]
+    // regex for variable recognition
+    private static final String VAR_REGEX = "([a-zA-Z]([a-zA-Z]|[0-9]|_)*)"; // recognizes var names starting with a letter
 	// regex for single-character operation recognition.
 	private static final String OP_REGEX = "(\\+|-|\\*|/)"; // recognizes as an operation
 	private static final String PLUS_REGEX = "(\\+)"; // for plus operation recognition
 	private static final String MINUS_REGEX = "(\\-)"; // for minus operation recognition
 	private static final String SLASH_REGEX = "(/)"; // for div operation recognition
 	private static final String STAR_REGEX = "(\\*)"; // for mult operation recognition
-	
+
 	public static boolean isNum(String token) {
 		return token.matches(NUM_REGEX);
 	}
+
+    public static boolean isVar(String token) {return token.matches(VAR_REGEX); }
 	
 	public static boolean isOP(String token) {
 		return token.matches(OP_REGEX);

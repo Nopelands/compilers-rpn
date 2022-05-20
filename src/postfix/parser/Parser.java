@@ -53,12 +53,14 @@ public class Parser {
 		while (!isAtEnd()) {
 			if(this.match(TokenType.NUM)) {
 				this.stack.push(this.number());
-			}
-			// matching any of the operation tokens
-			else if(this.match(TokenType.PLUS, TokenType.MINUS, 
-					TokenType.SLASH, TokenType.STAR)) {
-				this.stack.push(this.binop());
-			}
+            } else if (this.match(TokenType.VAR)) {
+                this.stack.push(this.var());
+            }
+            // matching any of the operation tokens
+            else if (this.match(TokenType.PLUS, TokenType.MINUS,
+                    TokenType.SLASH, TokenType.STAR)) {
+                this.stack.push(this.binop());
+            }
 			this.advance();
 		}
 		return this.stack.pop();
@@ -67,6 +69,8 @@ public class Parser {
 	private Expr number() {
 		return new Expr.Number(peek().lexeme);
 	}
+
+    private Expr var() {return new Expr.Variable(peek().lexeme); }
 
 	private Expr binop() {
 		return new Expr.Binop(this.stack.pop(), this.stack.pop(), this.peek());

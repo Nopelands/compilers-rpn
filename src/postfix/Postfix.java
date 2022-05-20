@@ -22,11 +22,13 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
 
 import postfix.ast.AstPrinter;
 import postfix.ast.Expr;
 import postfix.interpreter.Interpreter;
+import postfix.interpreter.InterpreterError;
 import postfix.lexer.LexError;
 import postfix.lexer.Scanner;
 import postfix.lexer.Token;
@@ -38,7 +40,7 @@ import postfix.parser.ParserError;
  */
 public class Postfix {
 
-	private static final Interpreter interpreter = new Interpreter();
+	private static final Interpreter interpreter = new Interpreter(new HashMap<String, String>());
 	private static boolean hasError = false;
 	private static boolean debugging = false;
 
@@ -98,31 +100,34 @@ public class Postfix {
 	 * @param source to be interpreted
 	 */
 	private static void run(String source) {
-		try {
-			Scanner scanner = new Scanner(source);
-			List<Token> tokens = scanner.scan();
+        try {
+            interpreter.env.put("this_is_a_variable7", "42");
+            Scanner scanner = new Scanner(source);
+            List<Token> tokens = scanner.scan();
 
-			// debugging for tokens
-			if(debugging) {
-				printTokens(tokens);
-			}
+            // debugging for tokens
+            if (debugging) {
+                printTokens(tokens);
+            }
 
-			Parser parser = new Parser(tokens);
-			Expr expr = parser.parse();
+            Parser parser = new Parser(tokens);
+            Expr expr = parser.parse();
 
-			// debugging for parsing/ast
-			if(debugging) {
-				printAST(expr);
-			}
-			System.out.println(interpreter.interp(expr));
-		} catch (LexError e) {
-			error("Lex", e.getMessage());
-			hasError = true;
-		}	
-		catch (ParserError e) {
-			error("Parser", e.getMessage());
-			hasError = true;
-		}	
+            // debugging for parsing/ast
+            if (debugging) {
+                printAST(expr);
+            }
+            System.out.println(interpreter.interp(expr));
+        } catch (LexError e) {
+            error("Lex", e.getMessage());
+            hasError = true;
+        } catch (ParserError e) {
+            error("Parser", e.getMessage());
+            hasError = true;
+        } catch (InterpreterError e) {
+            error("Interpreter", e.getMessage());
+            hasError = true;
+        }
 	}
 
 	// -------------------------------------------------------------

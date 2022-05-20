@@ -4,6 +4,7 @@ import java.util.Stack;
 
 import postfix.ast.Expr.Binop;
 import postfix.ast.Expr.Number;
+import postfix.ast.Expr.Variable;
 
 public class AstPrinter implements Expr.Visitor<String>{
 
@@ -15,6 +16,9 @@ public class AstPrinter implements Expr.Visitor<String>{
 	public String visitNumberExpr(Number expr) {
 		return expr.value.toString();
 	}
+
+    @Override
+    public String visitVariableExpr(Variable expr) {return expr.id.toString();}
 
 	@Override
 	public String visitBinopExpr(Binop expr) {
